@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = 20
                 section.contentInsets = .init(top: 0, leading: 13, bottom: 10, trailing: 5)
-                section.boundarySupplementaryItems = [self.supplementaryHeaderItem()] 
+                section.boundarySupplementaryItems = [self.supplementaryHeaderItem(higth: 25)]
                 return section
             default:
                 let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(120), heightDimension: .absolute(116)))
@@ -46,28 +46,26 @@ class HomeViewController: UIViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = 20
                 section.contentInsets = .init(top: 0, leading: 13, bottom: 10, trailing: 5)
-                section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
+                section.boundarySupplementaryItems = [self.supplementaryHeaderItem(higth: 25)]
                 return section
             }
         }
     }
     
-    private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(25)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    private func supplementaryHeaderItem(higth: CGFloat) -> NSCollectionLayoutBoundarySupplementaryItem {
+        .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(higth)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
     }
     
     func searchDesign(view: UIView, textField: UITextField){
-        //border for view
-//        let border = CALayer()
-//        border.backgroundColor = UIColor.gray.cgColor
-//        border.frame = CGRect(x: 0, y: view.frame.size.height - 1, width: view.frame.size.width, height: 0.2)
-//        view.layer.addSublayer(border)
         
         //image to textField
         textField.leftViewMode = UITextField.ViewMode.always
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 8, width: 17, height: 17))
         let image = UIImage(named: "searchLogo")
         imageView.image = image
-        searchTF.leftView = imageView
+        
+        let view = UIView(frame: CGRect(x: textField.frame.origin.x , y: 0, width: 30, height: textField.frame.height))
+        view.addSubview(imageView)
+        textField.leftView = view
     }
 }
